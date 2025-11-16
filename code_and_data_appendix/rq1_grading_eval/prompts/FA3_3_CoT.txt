@@ -1,0 +1,138 @@
+system!~*~!You are a helpful teacher's assistant whose job it is to score middle school student short answer formative assessment question responses in the Earth Science domain.
+
+In this formative assessment, students are shown a Fictitious Student's block-based code, where the Fictitious Student's code is designed to model what happens when it rains by calculating the runoff and absorption levels based on the rainfall amount and absorption limit of the material the ground is made of. The students are then tasked with the following:
+
+Identify and describe 5 errors in the Fictitious Student’s code.
+
+Here is the Fictitious Student's code:
+
+when [Green Flag] clicked: 	# (Line 1)
+	set [Rainfall (inch)] to 1 	# (Line 2)
+	if [Rainfall (inch)] == [Absorption Limit (inch)]:	# (Line 3)
+		set [Absorption (inch)] to [Rainfall (inch)]	# (Line 4)
+		set [Runoff (inch)] to 0	# (Line 5)
+	set [Absorption Limit (inch) of the Selected Material]	# (Line 6)
+	if [Rainfall (inch)] < [Absorption (inch)]:	# (Line 7)
+		set [Absorption (inch)] to [Absorption Limit (inch)]	# (Line 8)
+		set [Runoff (inch)] to 0	# (Line 9)
+		if [Rainfall (inch)] > [Absorption Limit (inch)]:	# (Line 10)
+			set [Absorption Limit (inch)] to [Absorption (inch)]	# (Line 11)
+			set [Runoff (inch)] to [Rainfall (inch)] - [Absorption Limit (inch)]	# (Line 12)
+
+Here are the 5 Errors in the Fictitious Student's code:
+
+1. "set [Absorption Limit (inch) of the Selected Material]" in Line 6 is in the wrong place and needs to occur before the first conditional (i.e., before Line 3). This is because this piece of code defines the [Absorption Limit (inch)] constant, which must happen before [Absorption Limit (inch)] is first referenced. 
+2. For the "less than" condition on Line 7, [Rainfall (inch)] should be compared to [Absorption Limit (inch)] and not [Absorption (inch)].
+3. In the "less than" condition, on Line 8 [Absorption (inch)] should be set to [Rainfall (inch)] instead of [Absorption Limit (inch)].
+4. The "greater than" condition on Line 10 should not be nested within the "less than" condition on Line 7.
+5. In the "greater than" condition, on Line 11 [Absorption (inch)] should be set to [Absorption Limit (inch)] and not the other way around (i.e., in the Fictitious Student's code, the two need to be swapped).
+
+You are to score student responses based on the following rubric to determine which of the 5 Errors each student correctly identifies:
+
+Incorrectly Set Absorption Limit [0 or 1]: 1 point if the student identifies that the absorption limit is initially set in the wrong part of the code or if the student mentions the absorption limit should be set before the first "if" statement. 0 points if the student does not identify this error.
+Rainfall Compared to Absorption [0 or 1]: 1 point if the student identifies that the code incorrectly compares rainfall to absorption in the "less than" condition on Line 7 or if the student mentions that rainfall should be compared to absorption limit instead of absorption. 0 points if the student does not identify this error.
+Absorption Set to Absorption Limit [0 or 1]: 1 point if the student identifies that, in the "less than" condition on Line 8, absorption is incorrectly set to absorption limit or that absorption should actually be set to rainfall. 0 points if the student does not identify this error.
+Greater Than Nested in Less Than [0 or 1]: 1 point if the student identifies that the "greater than" conditional statement is incorrectly nested inside the "less than" conditional statement or that the "greater than" conditional should be connected to the "less than" conditional but not inside it. 0 points if the student does not identify this error. 
+Absorption Limit Swapped With Absorption [0 or 1]: 1 point if the student identifies that, in the "greater than" condition on Line 11, absorption limit is incorrectly set to absorption or that absorption and absorption limit should actually be swapped (i.e., absorption should be set to absorption limit). 0 points if the student does not identify this error.
+
+Based on all of this information, score the following student's formative assessment response pursuant to the rubric. Please provide your scores as a JSON document that conforms to the following schema:
+
+{
+  "incorrectly_set_absorption_limit" :
+	{
+		"explanation": string,
+		"score": int
+	},
+  "rainfall_compared_to_absorption" :
+	{
+		"explanation": string,
+		"score": int
+	},
+  "absorption_set_to_absorption_limit" :
+	{
+		"explanation": string,
+		"score": int
+	},
+  "greater_than_nested_in_less_than" :
+	{
+		"explanation": string,
+		"score": int
+	},
+  "absorption_limit_swapped_with_absorption" :
+	{
+		"explanation": string,
+		"score": int
+	}
+}
+!@#@!
+user!~*~! The set absorption limit block is in the wrong place and should be before the first if condition.
+
+In the less than condition, rainfall is incorrectly compared to absorption (it should be compared to absorption limit).
+
+In the less than condition, absorption is set to absorption limit and should instead be set to rainfall.
+
+The greater than condition is incorrectly nested inside the less than condition. It should be below the less than condition and not inside it.
+
+In the greater than condition, absorption limit is incorrectly set to absorption. It should be the other way around: absorption should be set to absorption limit. 
+!@#@!
+assistant!~*~!{
+  "incorrectly_set_absorption_limit" :
+	{
+		"explanation": "The student says 'The set absorption limit block is in the wrong place and should be before the first if condition.' The rubric states the student should be awarded '1 point if the student identifies that the absorption limit is initially set in the wrong part of the code or if the student mentions the absorption limit should be set before the first 'if' statement.' Based on the rubric, the student earned a score of 1.",
+		"score": 1
+	},
+  "rainfall_compared_to_absorption" :
+	{
+		"explanation": "The student says 'In the less than condition, rainfall is incorrectly compared to absorption (it should be compared to absorption limit).' The rubric states the student should be awarded '1 point if the student identifies that the code incorrectly compares rainfall to absorption in the 'less than' condition on Line 7 or if the student mentions that rainfall should be compared to absorption limit instead of absorption.' Based on the rubric, the student earned a score of 1.",
+		"score": 1
+	},
+  "absorption_set_to_absorption_limit" :
+	{
+		"explanation": "The student says 'In the less than condition, absorption is set to absorption limit and should instead be set to rainfall.' The rubric states the student should be awarded '1 point if the student identifies that, in the 'less than' condition on Line 8, absorption is incorrectly set to absorption limit or that absorption should actually be set to rainfall.' Based on the rubric, the student earned a score of 1.",
+		"score": 1
+	},
+  "greater_than_nested_in_less_than" :
+	{
+		"explanation": "The student says 'The greater than condition is incorrectly nested inside the less than condition. It should be below the less than condition and not inside it.' The rubric states the student should be awarded '1 point if the student identifies that the 'greater than' conditional statement is incorrectly nested inside the 'less than' conditional statement or that the 'greater than' conditional should be connected to the 'less than' conditional but not inside it.' Based on the rubric, the student earned a score of 1.",
+		"score": 1
+	},
+  "absorption_limit_swapped_with_absorption" :
+	{
+		"explanation": "The student says 'In the greater than condition, absorption limit is incorrectly set to absorption. It should be the other way around: absorption should be set to absorption limit.' The rubric states the student should be awarded '1 point if the student identifies that, in the 'greater than' condition on Line 11, absorption limit is incorrectly set to absorption or that absorption and absorption limit should actually be swapped (i.e., absorption should be set to absorption limit).' Based on the rubric, the student earned a score of 1.",
+		"score": 1
+	}
+}
+!@#@!
+user!~*~!there are no numbers for the variables
+it wont tell me if there's a flood
+there is no runoff set for greater than  
+not sure
+dont know
+!@#@!
+assistant!~*~!{
+  "incorrectly_set_absorption_limit" :
+	{
+		"explanation": "The student did not mention the absorption limit block being incorrectly set. The rubric states the student should be awarded 0 points if the student does not identify the incorrectly set absorption limit error. Based on the rubric, the student earned a score of 0.",
+		"score": 0
+	},
+  "rainfall_compared_to_absorption" :
+	{
+		"explanation": "The student did not mention rainfall being incorrectly compared to absorption in the 'less than' condition. The rubric states the student should be awarded 0 points if the student does not identify the rainfall compared to absorption error. Based on the rubric, the student earned a score of 0.",
+		"score": 0
+	},
+  "absorption_set_to_absorption_limit" :
+	{
+		"explanation": "The student did not mention absorption being incorrectly set to absorption limit in the 'less than' condition. The rubric states the student should be awarded 0 points if the student does not identify the absorption set to absorption limit error. Based on the rubric, the student earned a score of 0.",
+		"score": 0
+	},
+  "greater_than_nested_in_less_than" :
+	{
+		"explanation": "The student did not mention the 'greater than' condition being incorrectly nested in the 'less than' condition. The rubric states the student should be awarded 0 points if the student does not identify the greater than nested in less than error. Based on the rubric, the student earned a score of 0.",
+		"score": 0
+	},
+  "absorption_limit_swapped_with_absorption" :
+	{
+		"explanation": "The student did not mention absorption limit being incorrectly set to absorption in the 'greater than' condition. The rubric states the student should be awarded 0 points if the student does not identify the absorption limit swapped with absorption error. Based on the rubric, the student earned a score of 0.",
+		"score": 0
+	}
+}

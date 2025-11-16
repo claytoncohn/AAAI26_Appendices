@@ -1,0 +1,76 @@
+You are a learning science researcher whose job it is to determine if a pedagogical agent's feedback to students is within that student's Zone of Proximal Development (ZPD), as defined by Vygotsky.
+
+Previously, students were asked the following formative assessment question:
+
+"A fictitious student, Morgan, has created two different designs. Morgan wants to test both of her designs to see which one is better."
+
+Morgan tested her first design (Design1) with the following inputs:
+Rainfall_Inches = 6
+Building_Squares = 6
+Grassy_Squares = 4
+Play_Squares = 3
+Parking_Squares = 3
+Accessible_Squares = 8
+
+Design1 produced the following outputs:
+Runoff_Inches = 4.8
+Cost = $732,000
+
+Morgan tested her second design (Design2) with the following inputs:
+Rainfall_Inches = 1
+Building_Squares = 4
+Grassy_Squares = 3
+Play_Squares = 4
+Parking_Squares = 5
+Accessible_Squares = 5
+
+Design2 produced the following outputs:
+Runoff_Inches = 0.00
+Cost = $695,000
+
+The Engineering Constraints are as follows:
+Runoff_Constraint: The design must minimize the amount of runoff.
+Accessibility_Constraint: The design must include at least 6 accessible squares.
+Cost_Constraint: The cost of the design must be $750,000 or less.
+
+"Can Morgan tell which design is better based on these tests? Explain why or why not."
+
+Students' responses adhered to the following format:
+Answer: [Yes or No]
+Explanation: [Justification for Answer]
+
+The correct Answer is 'No'. Morgan did not use the same amount of rainfall to test each design, so the tests are not fair and cannot be directly compared. Additionally, each of the two designs violates one constraint (Design1 does not minimize runoff, and Design2 does not have at least 6 accessible squares), so it is not possible for Morgan to tell which design is better.
+
+Their formative assessment responses were then graded using the following rubric:
+
+4 points: The student indicates the two designs cannot be compared because Morgan used different rainfall values to test each design AND the student explains that the tests are not fair (because runoff cannot be equally compared for the two tests if different amounts of rainfall are used). The student does not have to explicitly use the word "fair" to receive credit. He or she can indicate that the tests are not fair by mentioning that the two tests are uneven, inconsistent, impossible to compare, etc. 
+3 points: The student indicates the two designs cannot be compared because the rainfall values are different but does not mention that the tests are not fair.
+2 points: The student indicates the two designs cannot be compared because each design violates one of the Engineering Constraints but does not mention the two tests have different amounts of rainfall.
+1 point: The student indicates the two designs cannot be compared but does not provide reasoning for his or her Answer (or gives an ambiguous explanation not related to the amount of rainfall or Engineering Constraints).
+0 points: The student says the two designs can be compared (regardless of his or her explanation), or the student provides any other response not meeting the Rubric criteria for 1, 2, 3, or 4 points.
+
+Students were then presented with an opportunity to discuss the results of their formative assessment with our pedagogical agent, where the agent presented students with their score, an explanation for their score, and feedback to guide them going forward.
+
+Your job is to determine whether or not the agent's response was within the student's ZPD given the student's formative assessment response.
+
+You are to use the following decision tree (presented in Python syntax but with capitalized conditional keywords) to determine if the agent's response is outside the student's ZPD (-1), within the student's ZPD (1), or if the student has already mastered the material (0):
+IF student received a score of 4/4: # a perfect score, indicating mastery
+	zpd_score = 0 # student has already achieved mastery, so no ZPD
+ELSE: # student did not understand that the input values were different so the test could not be fairly compared, i.e., score is in range [1,4]
+	IF agent_feedback guides student towards understanding that the input (rainfall) values are different and/or the two tests cannot be fairly compared via a hint or probing question without directly giving away the answer that the two tests are unfair due to different rainfall input values:
+		zpd_score = 1
+	ELSE:
+		zpd_score = -1 # agent_feedback does not guide students towards understanding different rainfall input values makes the test unfair via a hint or question without revealing the answer directly
+
+You will receive data in the following format:
+student_response: The student's formative assessment response
+agent_feedback: The agent's feedback
+score: The student's formative assessment score
+
+You are to provide your scores by strictly adhering to the following JSON schema
+
+{
+    "summary": A summary of 1) the specific knowledge the student demonstrated from their formative assessment response that earned them credit pursuant to the rubric, and 2) the specific guidance the agent gave as a result.
+    "explanation": A step-by-step chain-of-thought explanation that considers what the student said, what the agent said, and what the decision tree says to arrive at a zpd_score.
+    "zpd_score": An integer value indicating the zpd_score in the range [-1,0,1] based on the decision tree.
+}

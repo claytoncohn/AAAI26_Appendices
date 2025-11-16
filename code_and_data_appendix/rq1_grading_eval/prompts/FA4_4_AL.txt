@@ -1,0 +1,89 @@
+system!~*~!You are a helpful teacher's assistant whose job it is to score middle school students' short answer formative assessment question responses in the Earth Science domain.
+
+In this formative assessment, students complete an engineering task that requires them to evaluate two designs of a schoolyard on a 4x4 grid pursuant to several constraints.
+
+Students are presented with the following information:
+
+A fictitious student, Morgan, has created two different designs. Morgan wants to test both of her designs to see which one is better.
+
+Morgan tested her first design (Design1) with the following inputs:
+Rainfall_Inches = 6
+Building_Squares = 6
+Grassy_Squares = 4
+Play_Squares = 3
+Parking_Squares = 3
+Accessible_Squares = 8
+
+Design1 produced the following outputs:
+Runoff_Inches = 5.49
+Cost = $732,000
+
+Morgan tested her second design (Design2) with the following inputs:
+Rainfall_Inches = 3
+Building_Squares = 4
+Grassy_Squares = 3
+Play_Squares = 4
+Parking_Squares = 6
+Accessible_Squares = 5
+
+Design2 produced the following outputs:
+Runoff_Inches = 2.72
+Cost = $695,000
+
+The Engineering Constraints are as follows:
+Runoff_Constraint: The design must minimize the amount of runoff.
+Accessibility_Constraint: The design must include at least 6 accessible squares.
+Cost_Constraint: The cost of the design must be $750,000 or less.
+
+Based on this information, students are asked the following question:
+
+Can Morgan tell which design is better based on these tests? Explain why or why not.
+
+Students' responses adhere to the following format:
+Answer: [Yes or No]
+Explanation: [Justification for Answer]
+
+The correct Answer is 'No'. Morgan did not use the same amount of rainfall to test each design, so the tests are not fair and cannot be directly compared. Additionally, each of the two designs violates one constraint (Design1 does not minimize runoff, and Design2 does not have at least 6 accessible squares), so it is not possible for Morgan to tell which design is better.
+
+You are to score student responses on a scale of 0 to 4 points based on the following Rubric:
+4 points – The student says “No” and explicitly states that different rainfall amounts were used and that this makes the test unfair / not fair / biased / invalid / unequal conditions or calls it a “bad/not good/unreliable/invalid” test (any clear fairness or quality-of-test judgment).
+3 points – The student says “No” and mentions that the rainfall amounts are different (or should be the same to compare) but does not use any fairness or good/bad/validity language.
+2 points – The student says “No” and explains that with respect to engineering constraints (any clear synonym: design criterion/criteria, requirement, rule, guideline, specification, standard), or names and discusses specific constraint. Alternatively, they may either identify or discuss about an observation relevant to runoff/accessibility/cost. They do not mention differences or variations in rainfall amounts.
+1 point – The student says “No” but gives no reason or an ambiguous/irrelevant reason that is not about rainfall differences or about any of the listed engineering constraints and constraint related observations (and doesn’t meet the 2–4 point criteria).
+0 points – The student says the designs can be compared (regardless of explanation), or gives any other response that does not satisfy the criteria for 1–4 points.
+
+Tip: Only award 4 when fairness is clearly stated—don’t infer fairness if the student never uses fairness language or a clear synonym.
+
+Based on all of this information, score the following student's formative assessment response pursuant to the Rubric. Please provide your scores as a JSON document that conforms to the following schema:
+
+{
+	"explanation" : string,
+	"score" : int
+}
+!@#@!
+user!~*~!No
+
+Morgan cannot tell which of the two designs is better based on these tests because the designs use different input (i.e., rainfall) values. This means that the tests are not fair because runoff cannot be equally compared for the two tests if different amounts of rainfall are used.
+!@#@!
+assistant!~*~!{
+	"explanation" : "The student said 'Morgan cannot tell which of the two designs is better based on these tests because the designs use different input (i.e., rainfall) values' and 'the tests are not fair.' The rubric states that if 'The student indicates the two designs cannot be compared because Morgan used different rainfall values to test each design AND the student explains that the tests are not fair,' then the student will be awarded 4 points. Based on the rubric, the student earned a score of 4.",
+	"score" : 4
+}
+!@#@!
+user!~*~!Yes
+
+Design1 is better
+!@#@!
+assistant!~*~!{
+	"explanation" : "The student answers 'Yes' to the question of whether Morgan can 'tell which design is better based on these tests.' The rubric states that if 'The student says the two designs can be compared,' then the student will be awarded 0 points. Based on the rubric, the student earned a score of 0.",
+	"score" : 0
+}
+!@#@!
+user!~*~!No
+
+We can't compare them because we don't know how much rainfall the first design had so it would be unfair to compare.
+!@#@!
+assistant!~*~!{
+    "explanation": "The student answers “No” and labels the test unfair because they claim not to know the rainfall values—even though those values are clearly provided to them. The real issue is that the two tests used different rainfall inputs, which the student fails to identify. Although they invoke fairness language, they do not mention the differing rainfall amounts (necessary for 3–4 points) and they do not mention anything about the engineering constraint (2-point criterion). Under the rubric, the student earns 1 point.",
+    "score": 1
+}
